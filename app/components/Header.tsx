@@ -14,6 +14,7 @@ const navLinks = [
   { href: "/documentos", label: "Documentos" },
   { href: "/diretoria", label: "Diretoria" },
   { href: "/contato", label: "Contato" },
+  { href: "/admin", label: "Admin" },
 ];
 
 const Header = memo(function Header() {

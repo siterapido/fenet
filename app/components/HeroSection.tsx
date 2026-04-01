@@ -13,6 +13,7 @@ interface Props {
   ctaHref?: string;
   secondaryLabel?: string;
   secondaryHref?: string;
+  backgroundImage?: string;
 }
 
 const HeroSection = memo(function HeroSection({
@@ -23,6 +24,7 @@ const HeroSection = memo(function HeroSection({
   ctaHref = "/noticias",
   secondaryLabel,
   secondaryHref,
+  backgroundImage,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -33,7 +35,17 @@ const HeroSection = memo(function HeroSection({
   return (
     <div ref={ref} className="relative min-h-[90vh] flex items-center overflow-hidden">
       <motion.div style={{ y: bgY }} className="absolute inset-0">
-        <GradientMesh />
+        {backgroundImage ? (
+          <>
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${backgroundImage})` }}
+            />
+            <div className="absolute inset-0 bg-black/60" />
+          </>
+        ) : (
+          <GradientMesh />
+        )}
       </motion.div>
 
       <motion.div

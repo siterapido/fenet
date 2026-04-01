@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "fenet-dev",
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["/Users/marcosalexandre/projetos/fenet/node_modules/.bin/next", "dev", "--turbopack"],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}

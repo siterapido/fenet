@@ -5,22 +5,61 @@ import { motion, AnimatePresence } from "motion/react";
 import PageHeader from "../components/PageHeader";
 import NewsCard from "../components/NewsCard";
 import StaggerContainer, { StaggerItem } from "../components/StaggerContainer";
+import { getPublishedPosts, getPublicCategories } from "../admin/actions";
 
-const news = [
-  { category: "Educação", title: "MEC publica novas diretrizes para ensino técnico integrado ao ensino médio", date: "14 Mar 2026", readTime: "4 min" },
-  { category: "Direitos Estudantis", title: "Novos IFs anunciam criação de grêmios livres com apoio da FENET", date: "22 Mar 2026", readTime: "5 min" },
-  { category: "Eventos", title: "Encontro Sul acontece em Curitiba: confira a programação completa", date: "10 Mar 2026", readTime: "3 min" },
-  { category: "FENET em Ação", title: "FENET lança guia completo sobre direitos dos estudantes estagiários", date: "09 Mar 2026", readTime: "2 min" },
-  { category: "Cultura", title: "Festival Cultural Estudantil abre inscrições para escolas técnicas", date: "07 Mar 2026", readTime: "2 min" },
-  { category: "Educação", title: "Debate sobre cortes no PRONATEC reúne entidades estudantis em Brasília", date: "05 Mar 2026", readTime: "6 min" },
-];
+const typeLabels: Record<string, string> = {
+  noticia: "Notícia",
+  artigo: "Artigo",
+  comunicado: "Comunicado",
+  entrevista: "Entrevista",
+};
 
-const categories = ["Todas", "Educação", "Direitos Estudantis", "Eventos", "FENET em Ação", "Cultura"];
+function formatDate(dateStr: string | null) {
+  if (!dateStr) return "";
+  return new Date(dateStr).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
 
 export default function Noticias() {
+  const [posts, setPosts] = useState<Array<{
+    id: string;
+    title: string;
+    slug: string;
+    excerpt: string | null;
+    featuredImage: string | null;
+    type: string;
+    status: string;
+    publishedAt: string | null;
+    createdAt: string;
+    categoryId: string | null;
+    categoryName: string | null;
+  }>>([]);
+  const [categories, setCategories] = useState<Array<{id: string; name: string; slug: string; createdAt: string}>>([]);
   const [active, setActive] = useState("Todas");
+  const [loading, setLoading] = useState(true);
 
-  const filtered = active === "Todas" ? news : news.filter((n) => n.category === active);
+  // Load data on mount
+  useState(() => {
+    async function load() {
+      const [postsData, catsData] = await Promise.all([
+        getPublishedPosts(),
+        getPublicCategories(),
+      ]);
+      setPosts(postsData);
+      setCategories(catsData);
+      setLoading(false);
+    }
+    load();
+  });
+
+  const allCategories = ["Todas", ...categories.map((c) => c.name)];
+  const filtered =
+    active === "Todas"
+      ? posts
+      : posts.filter((n) => n.categoryName === active);
 
   return (
     <>
@@ -35,7 +74,7 @@ export default function Noticias() {
         <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-4 flex flex-wrap gap-2 items-center">
           <span className="text-sm font-medium text-[#555555] mr-2 hidden sm:block">Filtrar:</span>
           <div className="relative flex gap-2 flex-wrap flex-1">
-            {categories.map((cat) => (
+            {allCategories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActive(cat)}
@@ -56,18 +95,6 @@ export default function Noticias() {
               </button>
             ))}
           </div>
-
-          <div className="relative ml-auto">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999999]">
-              <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5"/>
-              <path d="m21 21-4.35-4.35" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-            <input
-              type="text"
-              placeholder="Buscar notícias..."
-              className="pl-9 pr-4 py-2 border border-[#E0E0E0] rounded-lg text-sm w-[200px] outline-none focus:border-[#F4141A] transition-colors duration-200"
-            />
-          </div>
         </div>
       </div>
 
@@ -75,28 +102,40 @@ export default function Noticias() {
       <section className="py-16 px-6 md:px-10 max-w-[1280px] mx-auto">
         <AnimatePresence mode="wait">
           <StaggerContainer key={active} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {filtered.map((item, i) => (
-              <StaggerItem key={i}>
-                <NewsCard
-                  category={item.category}
-                  title={item.title}
-                  date={item.date}
-                  readTime={item.readTime}
-                />
-              </StaggerItem>
-            ))}
+            {loading ? (
+              <p className="text-center text-[#999] col-span-3 py-12">Carregando...</p>
+            ) : filtered.length === 0 ? (
+              <p className="text-center text-[#999] col-span-3 py-12">
+                Nenhuma notícia encontrada nesta categoria.
+              </p>
+            ) : (
+              filtered.map((item, i) => (
+                <StaggerItem key={item.id}>
+                  <NewsCard
+                    category={item.categoryName || typeLabels[item.type] || "Notícia"}
+                    title={item.title}
+                    summary={item.excerpt || undefined}
+                    date={formatDate(item.publishedAt || item.createdAt)}
+                    href={`/noticias/${item.slug}`}
+                    image={item.featuredImage || undefined}
+                  />
+                </StaggerItem>
+              ))
+            )}
           </StaggerContainer>
         </AnimatePresence>
 
-        <div className="text-center mt-14">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="border-2 border-[#F4141A] text-[#F4141A] px-8 py-3 rounded-xl text-sm font-bold uppercase tracking-wide hover:bg-[#FFF0F0] transition-colors duration-200"
-          >
-            Carregar mais notícias
-          </motion.button>
-        </div>
+        {!loading && filtered.length > 0 && (
+          <div className="text-center mt-14">
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="border-2 border-[#F4141A] text-[#F4141A] px-8 py-3 rounded-xl text-sm font-bold uppercase tracking-wide hover:bg-[#FFF0F0] transition-colors duration-200"
+            >
+              Carregar mais notícias
+            </motion.button>
+          </div>
+        )}
       </section>
     </>
   );

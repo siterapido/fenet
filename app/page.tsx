@@ -52,6 +52,7 @@ export default function Home() {
         ctaHref="/noticias"
         secondaryLabel="Conheça a FENET"
         secondaryHref="/sobre"
+        backgroundImage="/enet-foto-448.jpg"
       />
 
       {/* ── Em Destaque ──────────────────────────────────── */}

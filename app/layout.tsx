@@ -1,9 +1,11 @@
+import { NeonAuthUIProvider } from "@neondatabase/auth/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PageTransition from "./components/PageTransition";
+import { authClient } from "@/lib/auth/client";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,11 +25,16 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${inter.variable} font-sans min-h-screen flex flex-col antialiased`}>
-        <Header />
-        <main className="flex-1">
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <Footer />
+        <NeonAuthUIProvider
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          authClient={authClient as any}
+        >
+          <Header />
+          <main className="flex-1">
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+        </NeonAuthUIProvider>
       </body>
     </html>
   );
