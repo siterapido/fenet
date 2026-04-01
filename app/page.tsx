@@ -7,18 +7,41 @@ import AnimatedSection from "./components/AnimatedSection";
 import StaggerContainer, { StaggerItem } from "./components/StaggerContainer";
 import SectionHeading from "./components/SectionHeading";
 import AnimatedCounter from "./components/AnimatedCounter";
+import FeaturedSlider from "./components/FeaturedSlider";
 
-const featuredNews = {
-  category: "Direitos Estudantis",
-  title: "Novos Institutos Federais anunciam criação de grêmios livres em parceria com a FENET",
-  excerpt: "A iniciativa beneficia mais de 12 mil estudantes em 8 estados e marca um avanço histórico para a representação estudantil no ensino técnico.",
-  date: "22 Mar 2026",
-  readTime: "4 min",
-};
-
-const secondaryNews = [
-  { category: "FENET em Ação", title: "Coordenação nacional se reúne para discutir pauta do segundo semestre", date: "19 Mar 2026", readTime: "3 min" },
-  { category: "Cultura", title: "Festival Cultural Estudantil: inscrições abertas para escolas técnicas de todo o Brasil", date: "17 Mar 2026", readTime: "2 min" },
+const featuredSlides = [
+  {
+    category: "Direitos Estudantis",
+    title: "Novos Institutos Federais anunciam criação de grêmios livres em parceria com a FENET",
+    excerpt: "A iniciativa beneficia mais de 12 mil estudantes em 8 estados e marca um avanço histórico para a representação estudantil no ensino técnico.",
+    date: "22 Mar 2026",
+    readTime: "4 min",
+    image: "/enet-foto-448.jpg",
+  },
+  {
+    category: "FENET em Ação",
+    title: "Coordenação nacional se reúne para discutir pauta do segundo semestre",
+    excerpt: "Encontro virtual reúne coordenadores de todo o Brasil para definir prioridades da entidade para o próximo período.",
+    date: "19 Mar 2026",
+    readTime: "3 min",
+    image: "/enet-foto-208.jpg",
+  },
+  {
+    category: "Cultura",
+    title: "Festival Cultural Estudantil: inscrições abertas para escolas técnicas",
+    excerpt: "Estudantes de todo o Brasil podem participar do maior evento cultural do movimento estudantil técnico.",
+    date: "17 Mar 2026",
+    readTime: "2 min",
+    image: "/enet-foto-526.jpg",
+  },
+  {
+    category: "Educação",
+    title: "MEC publica novas diretrizes para ensino técnico integrado",
+    excerpt: "Portaria estabelece diretrizes para a integração do ensino médio com a educação profissional técnica.",
+    date: "14 Mar 2026",
+    readTime: "5 min",
+    image: "/enet-foto-527.jpg",
+  },
 ];
 
 const latestNews = [
@@ -56,8 +79,8 @@ export default function Home() {
       />
 
       {/* ── Em Destaque ──────────────────────────────────── */}
-      <section className="py-20 px-6 md:px-10 max-w-[1280px] mx-auto">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+      <section className="py-16 px-6 md:px-10 max-w-[1280px] mx-auto">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <SectionHeading title="Em Destaque" subtitle="As principais notícias da semana" className="mb-0" />
           <AnimatedSection direction="right">
             <Link href="/noticias" className="text-[#F4141A] text-sm font-semibold hover:text-[#C01015] transition-colors flex items-center gap-1.5 group">
@@ -69,31 +92,9 @@ export default function Home() {
           </AnimatedSection>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-6">
-          <AnimatedSection direction="up" delay={0.05}>
-            <NewsCard
-              category={featuredNews.category}
-              title={featuredNews.title}
-              summary={featuredNews.excerpt}
-              date={featuredNews.date}
-              readTime={featuredNews.readTime}
-              featured
-            />
-          </AnimatedSection>
-
-          <div className="flex flex-col gap-5">
-            {secondaryNews.map((news, i) => (
-              <AnimatedSection key={i} direction="left" delay={0.1 + i * 0.1}>
-                <NewsCard
-                  category={news.category}
-                  title={news.title}
-                  date={news.date}
-                  readTime={news.readTime}
-                />
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
+        <AnimatedSection direction="up" delay={0.05}>
+          <FeaturedSlider slides={featuredSlides} />
+        </AnimatedSection>
       </section>
 
       {/* ── Últimas Notícias ──────────────────────────────── */}
