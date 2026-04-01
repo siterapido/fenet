@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FENET — Wireframe Visual do Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #F4141A;
+      --red-dark: #C01015;
+      --red-light: #FFF0F0;
+      --black: #1A1A1A;
+      --gray-50: #F5F5F5;
+      --gray-100: #E0E0E0;
+      --gray-400: #999999;
+      --gray-600: #555555;
+      --white: #FFFFFF;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+      --transition: 200ms ease-out;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e8e8e8;
+      color: var(--black);
+    }
+
+    /* ── DOCS NAV ──────────────────────────────── */
+    .docs-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: var(--black);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 9999;
+      font-size: 13px;
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+    .docs-nav span { color: var(--red); font-weight: 700; font-size: 15px; margin-right: 8px; }
+    .docs-nav a {
+      color: #cccccc;
+      text-decoration: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    .docs-nav a:hover, .docs-nav a.active { background: var(--red); color: white; }
+
+    /* ── WIREFRAME WRAPPER ──────────────────────── */
+    .wireframe-wrapper {
+      margin-top: 48px;
+      padding: 40px 24px;
+    }
+
+    .page-section {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 64px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .page-section + .page-section { margin-top: 0; margin-bottom: 64px; }
+
+    .section-label {
+      background: var(--black);
+      color: white;
+      padding: 10px 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label .page-name { color: var(--red); font-size: 14px; }
+
+    /* ── HEADER ──────────────────────────────────── */
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 0 48px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 48px;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--red);
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--black); font-size: 11px; font-weight: 500; display: block; letter-spacing: 0.5px; margin-top: -4px; }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a {
+      color: var(--black);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a.active { color: var(--red); border-bottom: 2px solid var(--red); }
+    .btn-cta {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-cta:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero {
+      height: 520px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%),
+                  linear-gradient(135deg, #1a1a1a 0%, #333 50%, #2a2a2a 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.01) 40px,
+        rgba(255,255,255,0.01) 80px
+      );
+    }
+    .hero-content { position: relative; max-width: 680px; }
+    .hero-category {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .hero-meta { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 24px; }
+    .btn-outline-white {
+      display: inline-block;
+      border: 2px solid white;
+      color: white;
+      padding: 12px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-outline-white:hover { background: white; color: var(--black); }
+
+    /* ── SECTIONS ────────────────────────────────── */
+    .section-container {
+      padding: 64px 48px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 8px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--red);
+      display: inline-block;
+    }
+    .section-subtitle { font-size: 15px; color: var(--gray-600); margin-bottom: 32px; }
+
+    /* ── NEWS GRID ───────────────────────────────── */
+    .news-grid-featured {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .news-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+      border: 1px solid var(--gray-100);
+    }
+    .news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .card-img {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .card-img.tall { height: 220px; }
+    .card-img.short { height: 160px; }
+    .card-img.mini { height: 120px; }
+    .card-img.medium { height: 180px; }
+
+    .card-body { padding: 20px; }
+    .card-category {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.4;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-title.large { font-size: 20px; -webkit-line-clamp: 3; }
+    .card-excerpt {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .card-date { font-size: 12px; color: var(--gray-400); }
+    .card-date span { color: var(--red); font-weight: 600; }
+
+    .news-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* ── ABOUT SECTION ───────────────────────────── */
+    .about-block {
+      background: var(--gray-50);
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-text h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .about-text h2 em { color: var(--red); font-style: normal; }
+    .about-text p {
+      font-size: 16px;
+      color: var(--gray-600);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      padding: 12px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-block;
+      border: 2px solid var(--red);
+      color: var(--red);
+      padding: 10px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: var(--transition);
+      margin-left: 12px;
+    }
+    .btn-secondary:hover { background: var(--red-light); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 28px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border-top: 4px solid var(--red);
+    }
+    .stat-number {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label { font-size: 13px; color: var(--gray-600); font-weight: 500; }
+
+    /* ── EVENTS ──────────────────────────────────── */
+    .events-list { display: flex; flex-direction: column; gap: 16px; }
+    .event-card {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid var(--red);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .event-card:hover { transform: translateX(4px); box-shadow: var(--shadow-md); }
+    .event-date {
+      background: var(--red);
+      color: white;
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      text-align: center;
+      min-width: 64px;
+      flex-shrink: 0;
+    }
+    .event-date .day { font-size: 24px; font-weight: 800; line-height: 1; }
+    .event-date .month { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .event-info h4 { font-size: 16px; font-weight: 700; color: var(--black); margin-bottom: 6px; }
+    .event-info p { font-size: 13px; color: var(--gray-600); }
+    .event-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--red-light);
+      color: var(--red);
+      padding: 3px 8px;
+      border-radius: 99px;
+      margin-top: 6px;
+    }
+
+    /* ── CTA BANNER ──────────────────────────────── */
+    .cta-banner {
+      background: var(--red);
+      padding: 64px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .cta-banner h2 {
+      font-size: 30px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.3;
+    }
+    .cta-banner p { font-size: 16px; color: rgba(255,255,255,0.85); margin-top: 8px; }
+    .btn-white {
+      background: white;
+      color: var(--red);
+      border: none;
+      padding: 14px 32px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    .site-footer {
+      background: var(--black);
+      color: white;
+      padding: 56px 48px 32px;
+      border-top: 4px solid var(--red);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+    .footer-logo { font-size: 28px; font-weight: 900; color: white; }
+    .footer-logo span { color: var(--red); }
+    .footer-desc { font-size: 14px; color: var(--gray-400); line-height: 1.6; margin-top: 12px; }
+    .social-links { display: flex; gap: 12px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .social-btn:hover { background: var(--red); }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: white; margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { color: var(--gray-400); text-decoration: none; font-size: 14px; transition: var(--transition); }
+    .footer-col a:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    /* ── NEWS PAGE ───────────────────────────────── */
+    .page-breadcrumb {
+      padding: 16px 48px;
+      background: var(--gray-50);
+      font-size: 13px;
+      color: var(--gray-400);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .page-breadcrumb a { color: var(--red); text-decoration: none; }
+    .page-breadcrumb a:hover { text-decoration: underline; }
+
+    .filters-bar {
+      padding: 20px 48px;
+      background: white;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-chip {
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1.5px solid var(--gray-100);
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-chip:hover, .filter-chip.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: white;
+    }
+    .search-input-wrap {
+      margin-left: auto;
+      position: relative;
+    }
+    .search-input {
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 8px 16px 8px 40px;
+      font-size: 13px;
+      color: var(--black);
+      width: 240px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--red); }
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-400);
+      font-size: 14px;
+    }
+
+    /* ── ARTICLE PAGE ────────────────────────────── */
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 48px;
+      padding: 48px 48px;
+    }
+    .article-cover {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+    }
+    .article-header .category { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .article-header h1 { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: var(--gray-400); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--gray-100); }
+    .article-meta strong { color: var(--black); }
+    .article-body { font-size: 17px; line-height: 1.8; color: #333; }
+    .article-body p { margin-bottom: 24px; }
+    .article-body p:first-child::first-letter { font-size: 52px; font-weight: 900; color: var(--red); float: left; line-height: 0.8; margin-right: 8px; margin-top: 8px; }
+
+    .share-bar {
+      display: flex;
+      gap: 8px;
+      padding: 24px 0;
+      border-top: 1px solid var(--gray-100);
+      margin-top: 32px;
+    }
+    .share-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .share-btn.wpp { background: #25D366; color: white; }
+    .share-btn.tw { background: #1DA1F2; color: white; }
+    .share-btn.fb { background: #1877F2; color: white; }
+    .share-btn.copy { background: var(--gray-50); color: var(--black); border: 1px solid var(--gray-100); }
+
+    .sidebar-widget {
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .widget-header {
+      background: var(--black);
+      color: white;
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-left: 4px solid var(--red);
+    }
+    .widget-body { padding: 16px; }
+    .mini-news { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
+    .mini-news:last-child { border-bottom: none; }
+    .mini-news img { width: 64px; height: 48px; background: var(--gray-100); border-radius: var(--radius-sm); flex-shrink: 0; object-fit: cover; }
+    .mini-news-img { width: 64px; height: 48px; background: var(--gray-100); border-radius: var(--radius-sm); flex-shrink: 0; }
+    .mini-news p { font-size: 13px; font-weight: 600; line-height: 1.4; color: var(--black); }
+    .mini-news span { font-size: 11px; color: var(--gray-400); margin-top: 4px; display: block; }
+
+    /* ── ABOUT PAGE ──────────────────────────────── */
+    .about-hero {
+      background: linear-gradient(135deg, var(--black) 0%, #2a2a2a 100%);
+      padding: 80px 48px;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+    }
+    .about-hero-text { flex: 1; }
+    .about-hero-text .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+    .about-hero-text h1 { font-size: 44px; font-weight: 800; color: white; line-height: 1.2; margin-bottom: 20px; }
+    .about-hero-text p { font-size: 17px; color: rgba(255,255,255,0.75); line-height: 1.7; }
+    .about-hero-image {
+      width: 360px; height: 260px; flex-shrink: 0;
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.3);
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .timeline {
+      padding: 64px 48px;
+      background: white;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .timeline-dot {
+      width: 44px; height: 44px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .timeline-content h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .timeline-content p { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+
+    /* ── CONTACT PAGE ────────────────────────────── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      padding: 64px 48px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 8px; }
+    .form-input {
+      width: 100%;
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--black);
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-input:focus { border-color: var(--red); }
+    .form-textarea { resize: vertical; min-height: 140px; }
+    .contact-info-card {
+      background: var(--black);
+      color: white;
+      border-radius: var(--radius-md);
+      padding: 36px;
+    }
+    .contact-info-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .contact-info-card .desc { color: rgba(255,255,255,0.65); font-size: 15px; margin-bottom: 32px; line-height: 1.6; }
+    .contact-item { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: rgba(244,20,26,0.15);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      border: 1px solid rgba(244,20,26,0.3);
+    }
+    .contact-item-text p { font-size: 13px; color: rgba(255,255,255,0.5); }
+    .contact-item-text strong { font-size: 15px; display: block; margin-top: 2px; }
+
+    /* ── PAGE TITLE BANNER ───────────────────────── */
+    .page-title-banner {
+      background: linear-gradient(135deg, var(--black) 0%, #2d2d2d 100%);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-title-banner h1 { font-size: 32px; font-weight: 800; color: white; }
+    .page-title-banner p { color: rgba(255,255,255,0.6); font-size: 15px; margin-top: 4px; }
+    .page-title-banner .accent { color: var(--red); }
+
+    /* ── SECTION HEADERS ─────────────────────────── */
+    .section-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .section-header-bar a { font-size: 13px; color: var(--red); font-weight: 600; text-decoration: none; }
+    .section-header-bar a:hover { text-decoration: underline; }
+
+    /* ── NEWSLETTER ──────────────────────────────── */
+    .newsletter-section {
+      background: var(--gray-50);
+      padding: 56px 48px;
+      text-align: center;
+    }
+    .newsletter-section h2 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .newsletter-section p { font-size: 15px; color: var(--gray-600); margin-bottom: 28px; }
+    .newsletter-form { display: flex; gap: 12px; max-width: 460px; margin: 0 auto; }
+    .newsletter-form input { flex: 1; border: 1.5px solid var(--gray-100); padding: 12px 16px; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 14px; outline: none; }
+    .newsletter-form input:focus { border-color: var(--red); }
+
+    /* ── DIVIDER ─────────────────────────────────── */
+    .divider { height: 1px; background: var(--gray-100); margin: 0 48px; }
+
+    /* ── TAGS ────────────────────────────────────── */
+    .tag { display: inline-block; background: var(--red-light); color: var(--red); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; margin-right: 6px; margin-bottom: 6px; }
+
+  </style>
+</head>
+<body>
+
+  <!-- DOCS NAVIGATION -->
+  <nav class="docs-nav">
+    <span>FENET Wireframes</span>
+    <a href="#home" class="active">Home</a>
+    <a href="#noticias">Notícias</a>
+    <a href="#artigo">Artigo</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <div class="wireframe-wrapper">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PÁGINA: HOME
+    ══════════════════════════════════════════════════════════════ -->
+    <div class="page-section" id="home">
+      <div class="section-label">
+        <span class="page-name">HOME PAGE</span>
+        — Portal de Notícias + Institucional
+      </div>
+
+      <!-- Header -->
+      <header class="site-header">
+        <div class="logo">
+          FENET
+          <span>Federação Nacional dos Estudantes em Ensino Técnico</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#home" class="active">Home</a>
+          <a href="#noticias">Notícias</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#">Agenda</a>
+          <a href="#">Documentos</a>
+          <a href="#contato">Contato</a>
+        </nav>
+        <button class="btn-cta">Filie-se</button>
+      </header>
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-category">Educação · Destaque</div>
+          <h1>FENET realiza Encontro Nacional de Estudantes Técnicos em Belo Horizonte</h1>
+          <p class="hero-meta">15 de março de 2026 · 5 min de leitura</p>
+          <a href="#artigo" class="btn-outline-white">Leia a reportagem completa</a>
+        </div>
+      </div>
+
+      <!-- Destaques -->
+      <div class="section-container">
+        <div class="section-header-bar">
+          <div>
+            <div class="section-title">Em Destaque</div>
+            <p class="section-subtitle">As principais notícias da semana</p>
+          </div>
+          <a href="#noticias">Ver todas as notícias →</a>
+        </div>
+        <div class="news-grid-featured">
+          <div class="news-card">
+            <div class="card-img tall">Imagem principal 16:9</div>
+            <div class="card-body">
+              <div class="card-category">Direitos Estudantis</div>
+              <div class="card-title large">Novos Institutos Federais anunciam criação de grêmios livres em parceria com a FENET</div>
+              <div class="card-excerpt">A iniciativa beneficia mais de 12 mil estudantes em 8 estados e marca um avanço histórico para a representação estudantil no ensino técnico.</div>
+              <div class="card-date"><span>22 Mar 2026</span> · 4 min de leitura</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="news-card">
+              <div class="card-img mini">Imagem 16:9</div>
+              <div class="card-body">
+                <div class="card-category">FENET em Ação</div>
+                <div class="card-title">Coordenação nacional se reúne para discutir pauta do segundo semestre</div>
+                <div class="card-date"><span>19 Mar 2026</span> · 3 min</div>
+              </div>
+            </div>
+            <div class="news-card">
+              <div class="card-img mini">Imagem 16:9</div>
+              <div class="card-body">
+                <div class="card-category">Cultura</div>
+                <div class="card-title">Festival Cultural Estudantil: inscrições abertas para escolas técnicas de todo o Brasil</div>
+                <div class="card-date"><span>17 Mar 2026</span> · 2 min</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Últimas Notícias -->
+      <div class="section-container" style="background:var(--gray-50);">
+        <div class="section-header-bar">
+          <div>
+            <div class="section-title">Últimas Notícias</div>
+            <p class="section-subtitle">Fique por dentro de tudo que acontece</p>
+          </div>
+          <a href="#noticias">Ver todas →</a>
+        </div>
+        <div class="news-grid-3">
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">Educação</div>
+              <div class="card-title">MEC publica novas diretrizes para ensino técnico integrado</div>
+              <div class="card-excerpt">As mudanças afetam diretamente estudantes de cursos integrados ao ensino médio em todo o país.</div>
+              <div class="card-date"><span>14 Mar 2026</span></div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">Eventos</div>
+              <div class="card-title">Encontro Sul de Estudantes acontece em Curitiba no mês de abril</div>
+              <div class="card-excerpt">O evento reunirá representantes de grêmios e entidades dos estados do Sul do Brasil.</div>
+              <div class="card-date"><span>12 Mar 2026</span></div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">FENET em Ação</div>
+              <div class="card-title">FENET lança guia sobre lei de estágio para estudantes técnicos</div>
+              <div class="card-excerpt">O material esclarece direitos e deveres de estudantes estagiários nas escolas técnicas do Brasil.</div>
+              <div class="card-date"><span>09 Mar 2026</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Sobre a FENET -->
+      <div class="about-block">
+        <div class="section-container">
+          <div class="about-inner">
+            <div class="about-text">
+              <div class="section-title">Sobre a FENET</div>
+              <p class="section-subtitle">Nossa história e missão</p>
+              <h2>Defendendo o <em>estudante técnico</em> brasileiro desde 2011</h2>
+              <p>A FENET é a voz dos estudantes do ensino técnico do Brasil. Com 37 coordenadores atuando em todo o território nacional, representamos milhares de jovens em institutos federais e escolas técnicas estaduais.</p>
+              <div>
+                <a href="#sobre" class="btn-primary">Conheça nossa história</a>
+                <a href="#" class="btn-secondary">Filie sua entidade</a>
+              </div>
+            </div>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-number">37</div>
+                <div class="stat-label">Coordenadores Nacionais</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Anos de Atuação</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">26</div>
+                <div class="stat-label">Estados Representados</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">100k+</div>
+                <div class="stat-label">Estudantes Representados</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agenda -->
+      <div class="section-container">
+        <div class="section-header-bar">
+          <div>
+            <div class="section-title">Próximos Eventos</div>
+            <p class="section-subtitle">Participe das mobilizações nacionais</p>
+          </div>
+          <a href="#">Ver agenda completa →</a>
+        </div>
+        <div class="events-list" style="max-width: 700px;">
+          <div class="event-card">
+            <div class="event-date"><div class="day">18</div><div class="month">Abr</div></div>
+            <div class="event-info">
+              <h4>Encontro Sul de Estudantes Técnicos — Curitiba</h4>
+              <p>UTFPR Câmpus Curitiba — Paraná</p>
+              <span class="event-badge">Encontro Regional</span>
+            </div>
+          </div>
+          <div class="event-card">
+            <div class="event-date"><div class="day">05</div><div class="month">Mai</div></div>
+            <div class="event-info">
+              <h4>Seminário Nacional: Lei de Estágio para Estudantes Técnicos</h4>
+              <p>Online — Transmissão ao Vivo pelo YouTube</p>
+              <span class="event-badge">Seminário</span>
+            </div>
+          </div>
+          <div class="event-card">
+            <div class="event-date"><div class="day">20</div><div class="month">Jun</div></div>
+            <div class="event-info">
+              <h4>Plenária Nacional da FENET 2026</h4>
+              <p>Belo Horizonte — MG (local a confirmar)</p>
+              <span class="event-badge">Plenária Nacional</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="newsletter-section">
+        <h2>Fique por dentro das novidades</h2>
+        <p>Receba notícias, comunicados e convocações da FENET direto no seu e-mail</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Seu endereço de e-mail">
+          <button class="btn-cta">Inscrever-se</button>
+        </div>
+      </div>
+
+      <!-- CTA Banner -->
+      <div class="cta-banner">
+        <div>
+          <h2>Sua entidade pode fazer parte da FENET</h2>
+          <p>Grêmios, DCEs e entidades estudantis de escolas técnicas de todo o Brasil</p>
+        </div>
+        <button class="btn-white">Saiba como se filiar →</button>
+      </div>
+
+      <!-- Footer -->
+      <footer class="site-footer">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo">FE<span>NET</span></div>
+            <p class="footer-desc">Federação Nacional dos Estudantes em Ensino Técnico. Organizando a luta dos estudantes técnicos do Brasil desde 2011.</p>
+            <div class="social-links">
+              <div class="social-btn">IG</div>
+              <div class="social-btn">FB</div>
+              <div class="social-btn">TW</div>
+              <div class="social-btn">YT</div>
+              <div class="social-btn">WA</div>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Institucional</h4>
+            <ul>
+              <li><a href="#sobre">Sobre a FENET</a></li>
+              <li><a href="#">Coordenação</a></li>
+              <li><a href="#">História</a></li>
+              <li><a href="#">Estatuto</a></li>
+              <li><a href="#">Atas e Resoluções</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Conteúdo</h4>
+            <ul>
+              <li><a href="#noticias">Notícias</a></li>
+              <li><a href="#">Agenda de Eventos</a></li>
+              <li><a href="#">Documentos</a></li>
+              <li><a href="#">Galeria de Fotos</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contato</h4>
+            <ul>
+              <li><a href="#">fenetbrasil@gmail.com</a></li>
+              <li><a href="#">Formulário de Contato</a></li>
+              <li><a href="#contato">Filie-se</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>CNPJ 19.720.065/0001-30 · Belo Horizonte, MG</span>
+          <span>© 2026 FENET. Todos os direitos reservados.</span>
+        </div>
+      </footer>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PÁGINA: NOTÍCIAS
+    ══════════════════════════════════════════════════════════════ -->
+    <div class="page-section" id="noticias">
+      <div class="section-label">
+        <span class="page-name">NOTÍCIAS</span>
+        — Portal de Notícias com Filtros
+      </div>
+
+      <header class="site-header">
+        <div class="logo">FENET<span>Federação Nacional dos Estudantes em Ensino Técnico</span></div>
+        <nav class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#noticias" class="active">Notícias</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#">Agenda</a>
+          <a href="#">Documentos</a>
+          <a href="#contato">Contato</a>
+        </nav>
+        <button class="btn-cta">Filie-se</button>
+      </header>
+
+      <div class="page-title-banner">
+        <div>
+          <h1>Notícias</h1>
+          <p>Fique por dentro das últimas movimentações da <span class="accent">FENET</span> e da educação técnica</p>
+        </div>
+      </div>
+
+      <div class="page-breadcrumb">
+        <a href="#home">Home</a> / Notícias
+      </div>
+
+      <div class="filters-bar">
+        <span style="font-size:13px;font-weight:600;color:var(--gray-600);margin-right:4px;">Filtrar:</span>
+        <div class="filter-chip active">Todas</div>
+        <div class="filter-chip">Educação</div>
+        <div class="filter-chip">Direitos Estudantis</div>
+        <div class="filter-chip">Eventos</div>
+        <div class="filter-chip">FENET em Ação</div>
+        <div class="filter-chip">Cultura</div>
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input class="search-input" type="text" placeholder="Buscar notícias...">
+        </div>
+      </div>
+
+      <div class="section-container">
+        <div class="news-grid-3">
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">Educação</div>
+              <div class="card-title">MEC publica novas diretrizes para ensino técnico integrado ao ensino médio</div>
+              <div class="card-excerpt">Mudanças afetam estudantes de cursos integrados em todo o Brasil.</div>
+              <div class="card-date"><span>14 Mar 2026</span> · 4 min</div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">Direitos Estudantis</div>
+              <div class="card-title">Novos IFs anunciam criação de grêmios livres com apoio da FENET</div>
+              <div class="card-excerpt">Iniciativa beneficia 12 mil estudantes em 8 estados brasileiros.</div>
+              <div class="card-date"><span>22 Mar 2026</span> · 5 min</div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">Eventos</div>
+              <div class="card-title">Encontro Sul acontece em Curitiba: confira programação completa</div>
+              <div class="card-excerpt">Evento reunirá entidades dos estados do Sul com palestras e assembleias.</div>
+              <div class="card-date"><span>10 Mar 2026</span> · 3 min</div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">FENET em Ação</div>
+              <div class="card-title">FENET lança guia completo sobre direitos dos estudantes estagiários</div>
+              <div class="card-excerpt">Material gratuito para download disponível no site da federação.</div>
+              <div class="card-date"><span>09 Mar 2026</span> · 2 min</div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">Cultura</div>
+              <div class="card-title">Festival Cultural Estudantil abre inscrições para escolas técnicas</div>
+              <div class="card-excerpt">Categorias incluem música, dança, artes visuais e produção audiovisual.</div>
+              <div class="card-date"><span>07 Mar 2026</span> · 2 min</div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="card-img medium">Imagem</div>
+            <div class="card-body">
+              <div class="card-category">Educação</div>
+              <div class="card-title">Debate sobre cortes no PRONATEC reúne entidades estudantis em Brasília</div>
+              <div class="card-excerpt">FENET participou do ato em defesa da educação profissional e tecnológica.</div>
+              <div class="card-date"><span>05 Mar 2026</span> · 6 min</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:48px;">
+          <button class="btn-secondary" style="cursor:pointer;">Carregar mais notícias</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PÁGINA: ARTIGO
+    ══════════════════════════════════════════════════════════════ -->
+    <div class="page-section" id="artigo">
+      <div class="section-label">
+        <span class="page-name">ARTIGO / NOTÍCIA</span>
+        — Página de Leitura de Notícia
+      </div>
+
+      <header class="site-header">
+        <div class="logo">FENET<span>Federação Nacional dos Estudantes em Ensino Técnico</span></div>
+        <nav class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#noticias" class="active">Notícias</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#">Agenda</a>
+          <a href="#">Documentos</a>
+          <a href="#contato">Contato</a>
+        </nav>
+        <button class="btn-cta">Filie-se</button>
+      </header>
+
+      <div class="page-breadcrumb">
+        <a href="#home">Home</a> / <a href="#noticias">Notícias</a> / <a href="#">Direitos Estudantis</a> / Novos IFs anunciam...
+      </div>
+
+      <div class="article-layout">
+        <div>
+          <div class="article-header">
+            <div class="category">Direitos Estudantis</div>
+            <h1>Novos Institutos Federais anunciam criação de grêmios livres em parceria com a FENET</h1>
+            <div class="article-meta">
+              <div>Por <strong>Redação FENET</strong></div>
+              <div>22 de março de 2026</div>
+              <div>⏱ 5 min de leitura</div>
+            </div>
+          </div>
+
+          <div class="article-cover">Imagem de capa — 1200x675px</div>
+
+          <div class="article-body">
+            <p>A Federação Nacional dos Estudantes em Ensino Técnico (FENET) celebra uma conquista histórica: mais de 12 institutos federais em 8 estados brasileiros anunciaram a criação de grêmios estudantis livres, em parceria direta com a coordenação nacional da entidade.</p>
+            <p>A iniciativa marca um avanço significativo no processo de democratização das instituições de ensino técnico, garantindo aos estudantes espaços formais de representação, debate e participação nas decisões institucionais.</p>
+            <p>Segundo a coordenação da FENET, o processo de formação dos grêmios contou com um ciclo de capacitações realizadas ao longo de 2025, atingindo mais de 3 mil estudantes em todo o país. As formações abordaram temas como organização política estudantil, lei de estágio e os direitos previstos na Lei dos Grêmios Estudantis.</p>
+          </div>
+
+          <div class="share-bar">
+            <span style="font-size:13px;font-weight:600;color:var(--gray-600);margin-right:8px;">Compartilhar:</span>
+            <button class="share-btn wpp">💬 WhatsApp</button>
+            <button class="share-btn tw">🐦 Twitter/X</button>
+            <button class="share-btn fb">📘 Facebook</button>
+            <button class="share-btn copy">🔗 Copiar link</button>
+          </div>
+
+          <div style="margin-top:32px;padding-top:32px;border-top:1px solid var(--gray-100);">
+            <div style="font-size:13px;font-weight:700;color:var(--gray-600);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Tags</div>
+            <span class="tag">Grêmios</span>
+            <span class="tag">Institutos Federais</span>
+            <span class="tag">Direitos Estudantis</span>
+            <span class="tag">FENET</span>
+          </div>
+
+          <div style="margin-top:48px;">
+            <div class="section-title" style="font-size:18px;">Notícias Relacionadas</div>
+            <div style="height:12px;"></div>
+            <div class="news-grid-3">
+              <div class="news-card"><div class="card-img mini">Img</div><div class="card-body"><div class="card-category">FENET em Ação</div><div class="card-title">Coordenação se reúne para discutir pauta do segundo semestre</div></div></div>
+              <div class="news-card"><div class="card-img mini">Img</div><div class="card-body"><div class="card-category">Educação</div><div class="card-title">MEC publica novas diretrizes para ensino técnico integrado</div></div></div>
+              <div class="news-card"><div class="card-img mini">Img</div><div class="card-body"><div class="card-category">Eventos</div><div class="card-title">Encontro Sul acontece em Curitiba: veja a programação</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sidebar-widget">
+            <div class="widget-header">Mais Lidas</div>
+            <div class="widget-body">
+              <div class="mini-news">
+                <div class="mini-news-img"></div>
+                <div><p>FENET lança guia sobre lei de estágio para estudantes técnicos</p><span>09 Mar 2026</span></div>
+              </div>
+              <div class="mini-news">
+                <div class="mini-news-img"></div>
+                <div><p>MEC publica novas diretrizes para ensino técnico integrado</p><span>14 Mar 2026</span></div>
+              </div>
+              <div class="mini-news">
+                <div class="mini-news-img"></div>
+                <div><p>Festival Cultural abre inscrições para escolas técnicas</p><span>07 Mar 2026</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-widget">
+            <div class="widget-header">Próximos Eventos</div>
+            <div class="widget-body">
+              <div class="event-card" style="border-left:3px solid var(--red);padding:12px;">
+                <div class="event-date" style="font-size:90%;"><div class="day">18</div><div class="month">Abr</div></div>
+                <div class="event-info"><h4 style="font-size:14px;">Encontro Sul — Curitiba</h4><p style="font-size:12px;">UTFPR — PR</p></div>
+              </div>
+              <div style="height:10px;"></div>
+              <div class="event-card" style="border-left:3px solid var(--red);padding:12px;">
+                <div class="event-date" style="font-size:90%;"><div class="day">05</div><div class="month">Mai</div></div>
+                <div class="event-info"><h4 style="font-size:14px;">Seminário Lei de Estágio</h4><p style="font-size:12px;">Online — YouTube</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-widget">
+            <div class="widget-header">Newsletter</div>
+            <div class="widget-body">
+              <p style="font-size:13px;color:var(--gray-600);margin-bottom:14px;">Receba notícias da FENET no seu e-mail</p>
+              <input class="form-input" type="email" placeholder="Seu e-mail" style="margin-bottom:10px;">
+              <button class="btn-cta" style="width:100%;">Inscrever-se</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PÁGINA: SOBRE
+    ══════════════════════════════════════════════════════════════ -->
+    <div class="page-section" id="sobre">
+      <div class="section-label">
+        <span class="page-name">SOBRE A FENET</span>
+        — Página Institucional
+      </div>
+
+      <header class="site-header">
+        <div class="logo">FENET<span>Federação Nacional dos Estudantes em Ensino Técnico</span></div>
+        <nav class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#noticias">Notícias</a>
+          <a href="#sobre" class="active">Sobre</a>
+          <a href="#">Agenda</a>
+          <a href="#">Documentos</a>
+          <a href="#contato">Contato</a>
+        </nav>
+        <button class="btn-cta">Filie-se</button>
+      </header>
+
+      <div class="about-hero">
+        <div class="about-hero-text">
+          <div class="eyebrow">Sobre a FENET</div>
+          <h1>A voz dos estudantes<br>técnicos do Brasil</h1>
+          <p>Desde 2011 organizamos, mobilizamos e defendemos os direitos de milhares de jovens que cursam o ensino técnico em Institutos Federais e escolas técnicas estaduais em todo o território nacional.</p>
+        </div>
+        <div class="about-hero-image">Foto institucional da coordenação</div>
+      </div>
+
+      <!-- Missão, Visão, Valores -->
+      <div class="section-container">
+        <div class="news-grid-3" style="margin-bottom:0;">
+          <div style="background:var(--red);border-radius:var(--radius-md);padding:32px;color:white;">
+            <div style="font-size:28px;margin-bottom:12px;">🎯</div>
+            <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">Missão</h3>
+            <p style="font-size:15px;line-height:1.6;opacity:.9;">Organizar a luta dos estudantes do ensino técnico, defendendo seus direitos e conquistando uma educação técnica pública, gratuita e de qualidade.</p>
+          </div>
+          <div style="background:var(--black);border-radius:var(--radius-md);padding:32px;color:white;">
+            <div style="font-size:28px;margin-bottom:12px;">🔭</div>
+            <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">Visão</h3>
+            <p style="font-size:15px;line-height:1.6;opacity:.9;">Ser a principal referência na representação e organização dos estudantes da educação profissional e tecnológica do Brasil.</p>
+          </div>
+          <div style="background:var(--gray-50);border-radius:var(--radius-md);padding:32px;border:1px solid var(--gray-100);">
+            <div style="font-size:28px;margin-bottom:12px;">⚡</div>
+            <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">Valores</h3>
+            <p style="font-size:15px;line-height:1.6;color:var(--gray-600);">Democracia, solidariedade, pluralidade política, defesa da educação pública, diversidade e inclusão.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linha do Tempo -->
+      <div class="timeline">
+        <div class="section-title">Nossa Trajetória</div>
+        <p class="section-subtitle">Uma história de lutas e conquistas</p>
+        <div style="height:32px;"></div>
+        <div class="timeline-item">
+          <div class="timeline-dot">2011</div>
+          <div class="timeline-content">
+            <h4>Fundação da FENET</h4>
+            <p>A Federação Nacional dos Estudantes em Ensino Técnico é fundada com o objetivo de organizar e representar os estudantes das escolas técnicas brasileiras.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">2014</div>
+          <div class="timeline-content">
+            <h4>Registro Oficial como Associação Privada</h4>
+            <p>A FENET formaliza seu registro no CNPJ e consolida sua estrutura jurídica como entidade representativa nacional.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">2018</div>
+          <div class="timeline-content">
+            <h4>Expansão Nacional — 37 Coordenadores</h4>
+            <p>A coordenação nacional é ampliada para 37 membros, garantindo representação em todas as regiões do Brasil.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">2023</div>
+          <div class="timeline-content">
+            <h4>1º Encontro Nacional de Mulheres Estudantes Técnicas</h4>
+            <p>Evento histórico reúne estudantes de todo o Brasil para discutir gênero, educação e protagonismo feminino no ensino técnico.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">2026</div>
+          <div class="timeline-content">
+            <h4>Novo Site e Expansão Digital</h4>
+            <p>Lançamento do portal digital oficial da FENET, ampliando o alcance da federação e democratizando o acesso às informações estudantis.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PÁGINA: CONTATO
+    ══════════════════════════════════════════════════════════════ -->
+    <div class="page-section" id="contato">
+      <div class="section-label">
+        <span class="page-name">CONTATO / FILIAÇÃO</span>
+        — Formulário de Contato e Filiação
+      </div>
+
+      <header class="site-header">
+        <div class="logo">FENET<span>Federação Nacional dos Estudantes em Ensino Técnico</span></div>
+        <nav class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#noticias">Notícias</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#">Agenda</a>
+          <a href="#">Documentos</a>
+          <a href="#contato" class="active">Contato</a>
+        </nav>
+        <button class="btn-cta">Filie-se</button>
+      </header>
+
+      <div class="page-title-banner">
+        <div>
+          <h1>Contato & Filiação</h1>
+          <p>Entre em contato com a <span class="accent">FENET</span> ou filie sua entidade estudantil</p>
+        </div>
+      </div>
+
+      <div class="contact-layout">
+        <!-- Formulário -->
+        <div>
+          <div class="section-title" style="margin-bottom:8px;">Envie uma mensagem</div>
+          <p class="section-subtitle">Responderemos em até 2 dias úteis</p>
+          <div style="height:24px;"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="form-group">
+              <label class="form-label">Nome completo *</label>
+              <input class="form-input" type="text" placeholder="Seu nome">
+            </div>
+            <div class="form-group">
+              <label class="form-label">E-mail *</label>
+              <input class="form-input" type="email" placeholder="seu@email.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Entidade / Instituição</label>
+            <input class="form-input" type="text" placeholder="Nome da sua escola ou entidade">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Assunto *</label>
+            <select class="form-input">
+              <option>Selecione um assunto...</option>
+              <option>Filiação de entidade</option>
+              <option>Dúvidas sobre a FENET</option>
+              <option>Imprensa e mídia</option>
+              <option>Parcerias institucionais</option>
+              <option>Outros</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mensagem *</label>
+            <textarea class="form-input form-textarea" placeholder="Escreva sua mensagem aqui..."></textarea>
+          </div>
+          <button class="btn-cta" style="width:100%;padding:16px;font-size:14px;">Enviar Mensagem</button>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <div class="contact-info-card">
+            <h3>Fale com a FENET</h3>
+            <p class="desc">Nossa coordenação está disponível para receber estudantes, entidades, parceiros e imprensa.</p>
+            <div class="contact-item">
+              <div class="contact-icon">📧</div>
+              <div class="contact-item-text">
+                <p>E-mail oficial</p>
+                <strong>fenetbrasil@gmail.com</strong>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div class="contact-item-text">
+                <p>Sede registrada</p>
+                <strong>Belo Horizonte, Minas Gerais</strong>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📱</div>
+              <div class="contact-item-text">
+                <p>Instagram</p>
+                <strong>@fenetoficial</strong>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🐦</div>
+              <div class="contact-item-text">
+                <p>Twitter / X</p>
+                <strong>@FenetBrasil</strong>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:var(--red-light);border-radius:var(--radius-md);padding:28px;margin-top:20px;border:1px solid rgba(244,20,26,0.15);">
+            <h4 style="font-size:16px;font-weight:700;color:var(--red);margin-bottom:8px;">Quer filiar sua entidade?</h4>
+            <p style="font-size:14px;color:var(--gray-600);line-height:1.6;margin-bottom:16px;">Grêmios estudantis, DCEs e demais entidades de escolas técnicas podem se filiar à FENET. Entre em contato e nossa coordenação regional entrará em contato.</p>
+            <button class="btn-primary" style="font-size:13px;">Solicitar Filiação →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
