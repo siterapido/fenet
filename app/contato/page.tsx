@@ -58,6 +58,7 @@ export default function Contato() {
         title="Fale com a FENET"
         subtitle="Estamos prontos para atender você. Preencha o formulário ou entre em contato pelos nossos canais."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contato" }]}
+        backgroundImage="/images/fenet-526.jpg"
       />
 
       <section className="py-20 px-6 md:px-10 max-w-[1280px] mx-auto">

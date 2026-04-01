@@ -19,6 +19,7 @@ export default function Documentos() {
         title="Documentos"
         subtitle="Acesse documentos oficiais, atas e resoluções da FENET."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Documentos" }]}
+        backgroundImage="/images/fenet-448.jpg"
       />
 
       <section className="py-20 px-6 md:px-10 max-w-[1280px] mx-auto">

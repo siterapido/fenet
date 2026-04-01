@@ -18,6 +18,7 @@ export default function Agenda() {
         title="Agenda de Eventos"
         subtitle="Participe das mobilizações e eventos da FENET em todo o Brasil."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Agenda" }]}
+        backgroundImage="/images/fenet-526.jpg"
       />
 
       <section className="py-20 px-6 md:px-10 max-w-[1280px] mx-auto">

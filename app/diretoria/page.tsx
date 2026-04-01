@@ -84,6 +84,7 @@ export default async function DiretoriaPage() {
         title="Diretoria"
         subtitle="Conheça os membros da diretoria nacional da FENET Brasil e os representantes de cada estado."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Diretoria" }]}
+        backgroundImage="/images/fenet-527.jpg"
       />
 
       <section className="py-16 px-6 md:px-10 max-w-[1280px] mx-auto">

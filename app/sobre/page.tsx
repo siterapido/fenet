@@ -79,6 +79,7 @@ export default function Sobre() {
         title="Defendendo o estudante técnico brasileiro"
         subtitle="A FENET é a voz dos estudantes do ensino técnico do Brasil. Com 37 coordenadores atuando em todo o território nacional, representamos milhares de jovens."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Sobre" }]}
+        backgroundImage="/images/fenet-448.jpg"
       />
 
       {/* Timeline */}

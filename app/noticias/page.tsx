@@ -67,6 +67,7 @@ export default function Noticias() {
         title="Notícias"
         subtitle="Fique por dentro das últimas movimentações da FENET e da educação técnica."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Notícias" }]}
+        backgroundImage="/images/fenet-208.jpg"
       />
 
       {/* Filter bar */}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import GradientMesh from "./GradientMesh";
 
@@ -13,12 +14,33 @@ interface Props {
   title: string;
   subtitle?: string;
   breadcrumbs?: Crumb[];
+  backgroundImage?: string;
 }
 
-export default function PageHeader({ title, subtitle, breadcrumbs }: Props) {
+export default function PageHeader({ title, subtitle, breadcrumbs, backgroundImage }: Props) {
   return (
-    <div className="relative py-20 md:py-24 overflow-hidden">
-      <GradientMesh />
+    <div className="relative py-20 md:py-28 overflow-hidden">
+      {backgroundImage ? (
+        <>
+          {/* Foto de fundo */}
+          <div className="absolute inset-0">
+            <Image
+              src={backgroundImage}
+              alt={title}
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="100vw"
+            />
+          </div>
+          {/* Overlay escuro com gradiente */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/75" />
+          {/* Tint vermelho sutil */}
+          <div className="absolute inset-0 bg-[#F4141A]/10" />
+        </>
+      ) : (
+        <GradientMesh />
+      )}
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-10">
         {/* Breadcrumb */}
@@ -49,7 +71,7 @@ export default function PageHeader({ title, subtitle, breadcrumbs }: Props) {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-3xl md:text-5xl font-black text-white leading-tight tracking-tight max-w-2xl"
+          className="text-3xl md:text-5xl font-black text-white leading-tight tracking-tight max-w-2xl drop-shadow-lg"
         >
           {title}
         </motion.h1>
@@ -68,7 +90,7 @@ export default function PageHeader({ title, subtitle, breadcrumbs }: Props) {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.45 }}
-            className="mt-4 text-white/65 text-lg max-w-xl leading-relaxed"
+            className="mt-4 text-white/75 text-lg max-w-xl leading-relaxed drop-shadow"
           >
             {subtitle}
           </motion.p>
