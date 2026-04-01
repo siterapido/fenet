@@ -129,13 +129,17 @@ export default function FeaturedSlider({ slides }: FeaturedSliderProps) {
           <Link
             key={i}
             href="#"
-            className="group block bg-white rounded-xl p-5 shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1"
+            className="group block bg-white rounded-xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1"
           >
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[#F4141A]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-[#F4141A] text-xs font-bold">{(i + 2).toString().padStart(2, '0')}</span>
+            <div className="flex">
+              <div className="w-28 md:w-32 h-full min-h-[110px] relative flex-shrink-0">
+                {slide.image ? (
+                  <img src={slide.image} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full bg-[#F5F5F5]" />
+                )}
               </div>
-              <div>
+              <div className="p-4 flex flex-col justify-center">
                 <span className="text-[#F4141A] text-[10px] font-bold uppercase tracking-[0.12em]">
                   {slide.category}
                 </span>
