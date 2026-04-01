@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { memo } from "react";
+import OptimizedImage from "./OptimizedImage";
 
 interface Props {
   category: string;
@@ -35,11 +36,11 @@ const NewsCard = memo(function NewsCard({
     >
       <div className={`relative overflow-hidden bg-[#F5F5F5] ${featured ? "h-52" : "h-44"}`}>
         {image ? (
-          <img
+          <OptimizedImage
             src={image}
             alt={title}
-            className="w-full h-full object-cover"
-            loading="lazy"
+            className="w-full h-full"
+            showLoading={false}
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-[#F5F5F5] to-[#E0E0E0] flex items-center justify-center">

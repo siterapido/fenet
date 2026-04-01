@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
+import OptimizedImage from "./OptimizedImage";
 
 interface Slide {
   category: string;
@@ -48,10 +49,11 @@ export default function FeaturedSlider({ slides }: FeaturedSliderProps) {
             className="absolute inset-0"
           >
             {currentSlide.image ? (
-              <img
+              <OptimizedImage
                 src={currentSlide.image}
                 alt={currentSlide.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full"
+                showLoading={false}
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-[#1A1A1A] via-[#2D2D2D] to-[#1A1A1A]" />
@@ -134,7 +136,13 @@ export default function FeaturedSlider({ slides }: FeaturedSliderProps) {
             <div className="flex">
               <div className="w-28 md:w-32 h-full min-h-[110px] relative flex-shrink-0">
                 {slide.image ? (
-                  <img src={slide.image} alt="" className="w-full h-full object-cover" />
+                  <OptimizedImage
+                    src={slide.image}
+                    alt=""
+                    className="w-full h-full"
+                    aspectRatio="auto"
+                    showLoading={false}
+                  />
                 ) : (
                   <div className="w-full h-full bg-[#F5F5F5]" />
                 )}

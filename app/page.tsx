@@ -8,6 +8,7 @@ import StaggerContainer, { StaggerItem } from "./components/StaggerContainer";
 import SectionHeading from "./components/SectionHeading";
 import AnimatedCounter from "./components/AnimatedCounter";
 import FeaturedSlider from "./components/FeaturedSlider";
+import OptimizedImage from "./components/OptimizedImage";
 
 const featuredSlides = [
   {
@@ -208,12 +209,11 @@ export default function Home() {
           ].map((foto, i) => (
             <StaggerItem key={i}>
               <div className="relative aspect-square overflow-hidden rounded-xl group">
-                <Image
+                <OptimizedImage
                   src={foto.src}
                   alt={foto.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="transition-transform duration-500 group-hover:scale-105"
+                  aspectRatio="square"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 rounded-xl" />
               </div>
