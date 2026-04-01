@@ -97,7 +97,7 @@ const fenetTimeline = [
   },
   {
     year: "2020",
-    title: "Campanha Technic@ Viva",
+    title: "Campanha Nacional",
     content: "Lançamento da campanha em defesa do ensino técnico público, ampliando a visibilidade da causa estudantil em nível nacional.",
   },
   {
