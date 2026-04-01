@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/auth/server";
 import { db } from "@/lib/db";
-import { posts, categories } from "@/lib/db/schema";
+import { posts, categories, directors } from "@/lib/db/schema";
 import { eq, desc, and, sql, count } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -306,4 +306,108 @@ export async function getAdminStats() {
     publishedPosts: publishedCount.count,
     draftPosts: draftCount.count,
   };
+}
+
+// ─── Directors ─────────────────────────────────────────────────
+
+export async function getDirectors(filters?: {
+  search?: string;
+  estado?: string;
+}) {
+  await getAuthUser();
+
+  const conditions = [];
+
+  if (filters?.estado && filters.estado !== "all") {
+    conditions.push(eq(directors.estado, filters.estado));
+  }
+
+  if (filters?.search) {
+    conditions.push(sql`${directors.nome} ILIKE ${"%" + filters.search + "%"}`);
+  }
+
+  const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+  return db
+    .select()
+    .from(directors)
+    .where(whereClause)
+    .orderBy(directors.nome);
+}
+
+export async function getDirectorById(id: string) {
+  await getAuthUser();
+
+  const result = await db
+    .select()
+    .from(directors)
+    .where(eq(directors.id, id))
+    .limit(1);
+
+  return result[0] || null;
+}
+
+export async function getPublishedDirectors() {
+  return db.select().from(directors).orderBy(directors.nome);
+}
+
+export async function createDirector(formData: FormData) {
+  await getAuthUser();
+
+  const nome = formData.get("nome") as string;
+  const cargo = formData.get("cargo") as string;
+  const estado = formData.get("estado") as string;
+  const instituicao = formData.get("instituicao") as string;
+
+  if (!nome || !cargo || !estado) {
+    throw new Error("Nome, cargo e estado são obrigatórios");
+  }
+
+  await db.insert(directors).values({
+    nome: nome.trim(),
+    cargo: cargo.trim(),
+    estado,
+    instituicao: instituicao?.trim() || "",
+  });
+
+  revalidatePath("/admin/diretores");
+  revalidatePath("/diretoria");
+  redirect("/admin/diretores");
+}
+
+export async function updateDirector(id: string, formData: FormData) {
+  await getAuthUser();
+
+  const nome = formData.get("nome") as string;
+  const cargo = formData.get("cargo") as string;
+  const estado = formData.get("estado") as string;
+  const instituicao = formData.get("instituicao") as string;
+
+  if (!nome || !cargo || !estado) {
+    throw new Error("Nome, cargo e estado são obrigatórios");
+  }
+
+  await db
+    .update(directors)
+    .set({
+      nome: nome.trim(),
+      cargo: cargo.trim(),
+      estado,
+      instituicao: instituicao?.trim() || "",
+      updatedAt: new Date().toISOString(),
+    })
+    .where(eq(directors.id, id));
+
+  revalidatePath("/admin/diretores");
+  revalidatePath("/diretoria");
+  redirect("/admin/diretores");
+}
+
+export async function deleteDirector(id: string) {
+  await getAuthUser();
+
+  await db.delete(directors).where(eq(directors.id, id));
+
+  revalidatePath("/admin/diretores");
+  revalidatePath("/diretoria");
 }

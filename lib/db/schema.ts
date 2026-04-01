@@ -63,8 +63,21 @@ export const posts = pgTable("posts", {
   updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
 });
 
+// ─── Directors ──────────────────────────────────────────────────
+export const directors = pgTable("directors", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  nome: text("nome").notNull(),
+  cargo: text("cargo").notNull(),
+  estado: text("estado").notNull(),
+  instituicao: text("instituicao").default(""),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
+});
+
 // ─── Types ─────────────────────────────────────────────────────
 export type Post = typeof posts.$inferSelect;
 export type NewPost = typeof posts.$inferInsert;
 export type Category = typeof categories.$inferSelect;
 export type NewCategory = typeof categories.$inferInsert;
+export type Director = typeof directors.$inferSelect;
+export type NewDirector = typeof directors.$inferInsert;
