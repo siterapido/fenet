@@ -14,7 +14,6 @@ const navLinks = [
   { href: "/documentos", label: "Documentos" },
   { href: "/diretoria", label: "Diretoria" },
   { href: "/contato", label: "Contato" },
-  { href: "/admin", label: "Admin" },
 ];
 
 const Header = memo(function Header() {
@@ -85,7 +84,17 @@ const Header = memo(function Header() {
             })}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <Link
+              href="/auth/sign-in"
+              className="hidden md:inline-flex items-center gap-1.5 border border-[#E0E0E0] hover:border-[#F4141A] text-[#555555] hover:text-[#F4141A] text-[13px] font-medium px-4 py-2 rounded transition-all duration-200"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0">
+                <circle cx="7" cy="4.5" r="2.5" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M1.5 12.5C1.5 10.015 4.015 8 7 8s5.5 2.015 5.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Entrar
+            </Link>
             <Link
               href="/contato"
               className="hidden md:inline-flex items-center bg-[#F4141A] hover:bg-[#C01015] text-white text-[13px] font-bold px-5 py-2.5 rounded transition-all duration-200 hover:shadow-[0_4px_14px_rgba(244,20,26,0.35)] hover:-translate-y-px active:translate-y-0 tracking-wide uppercase"
@@ -184,9 +193,17 @@ const Header = memo(function Header() {
                 })}
               </nav>
 
-              <div className="px-5 pb-8 pt-3">
+              <div className="px-5 pb-8 pt-3 flex flex-col gap-3">
+                <Link
+                  href="/auth/sign-in"
+                  onClick={handleLinkClick}
+                  className="block w-full text-center border border-[#E0E0E0] hover:border-[#F4141A] text-[#555555] hover:text-[#F4141A] font-medium py-3 rounded transition-colors duration-200 text-sm"
+                >
+                  Entrar
+                </Link>
                 <Link
                   href="/contato"
+                  onClick={handleLinkClick}
                   className="block w-full text-center bg-[#F4141A] hover:bg-[#C01015] text-white font-bold py-3.5 rounded transition-colors duration-200 tracking-wide uppercase text-sm"
                 >
                   Filie-se
